@@ -1,0 +1,80 @@
+﻿@model ProductVM
+
+<form method="post" enctype="multipart/form-data">
+	<div class="row pb-2">
+		<h2 class="text-primary">@(Model.Product.Id!=0?"Update":"Create")Product</h2>
+		<hr />
+		<div asp-validation-summary="ModelOnly"></div>
+		<div class="mb-1 ">
+			<label asp-for="Product.Title"></label>
+			<input asp-for="Product.Title" type="text" class="form-control" />
+			<span asp-validation-for="Product.Title" class="text-danger"></span>
+		</div>
+		<div class="mb-1 ">
+			<label asp-for="Product.Description"></label>
+			<input asp-for="Product.Description" type="text" class="form-control" />
+			<span asp-validation-for="Product.Description" class="text-danger"></span>
+		</div>
+		<div class="mb-1">
+			<label asp-for="Product.ISBN"></label>
+			<input asp-for="Product.ISBN" type="text" class="form-control" />
+			<span asp-validation-for="Product.ISBN" class="text-danger"></span>
+		</div>
+		<div class="mb-1">
+			<label asp-for="Product.Author"></label>
+			<input asp-for="Product.Author" type="text" class="form-control" />
+			<span asp-validation-for="Product.Author" class="text-danger"></span>
+		</div>
+		<div class="mb-1">
+			<label asp-for="Product.ListPrice"></label>
+			<input asp-for="Product.ListPrice" type="text" class="form-control" />
+			<span asp-validation-for="Product.ListPrice" class="text-danger"></span>
+		</div>
+		<div class="mb-1">
+			<label asp-for="Product.Price"></label>
+			<input asp-for="Product.Price" type="text" class="form-control" />
+			<span asp-validation-for="Product.Price" class="text-danger"></span>
+		</div>
+		<div class="mb-1">
+			<label asp-for="Product.Price50"></label>
+			<input asp-for="Product.Price50" type="text" class="form-control" />
+			<span asp-validation-for="Product.Price50" class="text-danger"></span>
+		</div>
+		<div class="mb-1">
+			<label asp-for="Product.Price100"></label>
+			<input asp-for="Product.Price100" type="text" class="form-control" />
+			<span asp-validation-for="Product.Price100" class="text-danger"></span>
+		</div>
+		<div class="mb-1">
+			<label asp-for="Product.CategoryId"></label>
+			<select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" type="text" class="form-select"></select>
+			<span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+		</div>
+		<div class="mb-1">
+			<label asp-for="Product.ImageUrl"></label>
+			<input  type="file" class="form-control" />
+		</div>
+		<div class="row">
+			<div class="col-6">
+				@if(Model.Product.Id == 0)
+				{
+					<button type="submit" class="btn btn-dark ml-2 form-control">Create</button>
+				}
+				else
+				{
+					<button type="submit" class="btn btn-dark ml-2 form-control">Update</button>
+				}		
+			</div>
+			<div class="col-6">
+				<a asp-controller="Product" asp-action="Index" class="btn btn-info ml-2 form-control">Back to List</a>
+			</div>
+		</div>
+		
+	</div>
+</form>
+
+@section Scripts{
+	@{
+	 <partial name="_ValidationScriptsPartial"/>
+	}
+}
