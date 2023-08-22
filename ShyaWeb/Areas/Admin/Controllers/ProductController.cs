@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.Identity.Client;
 using Shya.DataAccess;
 using Shya.DataAccess.Data;
 using Shya.DataAccess.Repository.IRepository;
@@ -13,9 +14,11 @@ namespace ShyaWeb.Areas.Admin.Controllers
 	public class ProductController : Controller
 	{
 		private readonly IUnitOfWork _unitOfWork;
-		public ProductController(IUnitOfWork db)
+		private readonly IWebHostEnvironment _webHostEnvironment;
+		public ProductController(IUnitOfWork db, IWebHostEnvironment webHostEnvironment)
 		{
 			_unitOfWork = db;
+			_webHostEnvironment = webHostEnvironment;
 		}
 		public IActionResult Index()
 		{
@@ -49,7 +52,36 @@ namespace ShyaWeb.Areas.Admin.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_unitOfWork.Product.Add(productVM.Product);
+				string wwwRootPath = _webHostEnvironment.WebRootPath;
+				if(file != null)
+				{
+					string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+					string productPath = Path.Combine(wwwRootPath, @"images/product");
+					if(!string.IsNullOrEmpty(productVM.Product.ImageUrl))
+					{
+						//delete old imageURL	
+						var oldImagePath = Path.Combine(wwwRootPath, productVM.Product.ImageUrl.TrimStart('\\'));
+						if (System.IO.File.Exists(oldImagePath))
+						{
+							System.IO.File.Delete(oldImagePath);
+						}
+					}
+					using (var fileStream = new FileStream(Path.Combine(productPath, fileName), FileMode.Create))
+					{
+						file.CopyTo(fileStream);
+					}
+					productVM.Product.ImageUrl = @"\images\product\" + fileName;
+				}
+
+				if(productVM.Product.Id == 0)
+				{
+
+					_unitOfWork.Product.Add(productVM.Product);
+				}
+				else
+				{
+					_unitOfWork.Product.Update(productVM.Product);
+				}
 				_unitOfWork.Save();
 				TempData["success"] = "Product was created successfully";
 				return RedirectToAction("Index");

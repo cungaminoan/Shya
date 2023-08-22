@@ -1,79 +1,103 @@
 ﻿@model ProductVM
 
 <form method="post" enctype="multipart/form-data">
-	<div class="row pb-2">
-		<h2 class="text-primary">@(Model.Product.Id!=0?"Update":"Create")Product</h2>
-		<hr />
-		<div asp-validation-summary="ModelOnly"></div>
-		<div class="mb-1 ">
-			<label asp-for="Product.Title"></label>
-			<input asp-for="Product.Title" type="text" class="form-control" />
-			<span asp-validation-for="Product.Title" class="text-danger"></span>
-		</div>
-		<div class="mb-1 ">
-			<label asp-for="Product.Description"></label>
-			<input asp-for="Product.Description" type="text" class="form-control" />
-			<span asp-validation-for="Product.Description" class="text-danger"></span>
-		</div>
-		<div class="mb-1">
-			<label asp-for="Product.ISBN"></label>
-			<input asp-for="Product.ISBN" type="text" class="form-control" />
-			<span asp-validation-for="Product.ISBN" class="text-danger"></span>
-		</div>
-		<div class="mb-1">
-			<label asp-for="Product.Author"></label>
-			<input asp-for="Product.Author" type="text" class="form-control" />
-			<span asp-validation-for="Product.Author" class="text-danger"></span>
-		</div>
-		<div class="mb-1">
-			<label asp-for="Product.ListPrice"></label>
-			<input asp-for="Product.ListPrice" type="text" class="form-control" />
-			<span asp-validation-for="Product.ListPrice" class="text-danger"></span>
-		</div>
-		<div class="mb-1">
-			<label asp-for="Product.Price"></label>
-			<input asp-for="Product.Price" type="text" class="form-control" />
-			<span asp-validation-for="Product.Price" class="text-danger"></span>
-		</div>
-		<div class="mb-1">
-			<label asp-for="Product.Price50"></label>
-			<input asp-for="Product.Price50" type="text" class="form-control" />
-			<span asp-validation-for="Product.Price50" class="text-danger"></span>
-		</div>
-		<div class="mb-1">
-			<label asp-for="Product.Price100"></label>
-			<input asp-for="Product.Price100" type="text" class="form-control" />
-			<span asp-validation-for="Product.Price100" class="text-danger"></span>
-		</div>
-		<div class="mb-1">
-			<label asp-for="Product.CategoryId"></label>
-			<select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" type="text" class="form-select"></select>
-			<span asp-validation-for="Product.CategoryId" class="text-danger"></span>
-		</div>
-		<div class="mb-1">
-			<label asp-for="Product.ImageUrl"></label>
-			<input  type="file" class="form-control" />
-		</div>
-		<div class="row">
-			<div class="col-6">
-				@if(Model.Product.Id == 0)
-				{
-					<button type="submit" class="btn btn-dark ml-2 form-control">Create</button>
-				}
-				else
-				{
-					<button type="submit" class="btn btn-dark ml-2 form-control">Update</button>
-				}		
+	<input asp-for="Product.ImageUrl" hidden />
+	<input asp-for="Product.Id" hidden />
+	<div class="row">
+		<div class="col-10" style="border: 1px solid #bbb9b9">
+			<div class="row pb-2">
+				<h2 class="text-primary">@(Model.Product.Id != 0 ? "Update" : "Create")Product</h2>
+				<hr />
+				<div asp-validation-summary="ModelOnly"></div>
+				<div class="mb-1 ">
+					<label asp-for="Product.Title"></label>
+					<input asp-for="Product.Title" type="text" class="form-control" />
+					<span asp-validation-for="Product.Title" class="text-danger"></span>
+				</div>
+				<div class="mb-1 text-muted">
+					<label asp-for="Product.Description"></label>
+					<textarea asp-for="Product.Description" type="text" class="form-control"></textarea>
+				</div>
+				<div class="mb-1">
+					<label asp-for="Product.ISBN"></label>
+					<input asp-for="Product.ISBN" type="text" class="form-control" />
+					<span asp-validation-for="Product.ISBN" class="text-danger"></span>
+				</div>
+				<div class="mb-1">
+					<label asp-for="Product.Author"></label>
+					<input asp-for="Product.Author" type="text" class="form-control" />
+					<span asp-validation-for="Product.Author" class="text-danger"></span>
+				</div>
+				<div class="mb-1">
+					<label asp-for="Product.ListPrice"></label>
+					<input asp-for="Product.ListPrice" type="text" class="form-control" />
+					<span asp-validation-for="Product.ListPrice" class="text-danger"></span>
+				</div>
+				<div class="mb-1">
+					<label asp-for="Product.Price"></label>
+					<input asp-for="Product.Price" type="text" class="form-control" />
+					<span asp-validation-for="Product.Price" class="text-danger"></span>
+				</div>
+				<div class="mb-1">
+					<label asp-for="Product.Price50"></label>
+					<input asp-for="Product.Price50" type="text" class="form-control" />
+					<span asp-validation-for="Product.Price50" class="text-danger"></span>
+				</div>
+				<div class="mb-1">
+					<label asp-for="Product.Price100"></label>
+					<input asp-for="Product.Price100" type="text" class="form-control" />
+					<span asp-validation-for="Product.Price100" class="text-danger"></span>
+				</div>
+				<div class="mb-1">
+					<label asp-for="Product.CategoryId"></label>
+					<select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" type="text" class="form-select"></select>
+					<span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+				</div>
+				<div class="mb-1">
+					<label asp-for="Product.ImageUrl"></label>
+					<input type="file" name="file" class="form-control" />
+				</div>
+				<div class="row">
+					<div class="col-6">
+						@if (Model.Product.Id == 0)
+						{
+							<button type="submit" class="btn btn-dark ml-2 form-control">Create</button>
+						}
+						else
+						{
+							<button type="submit" class="btn btn-dark ml-2 form-control">Update</button>
+						}
+					</div>
+					<div class="col-6">
+						<a asp-controller="Product" asp-action="Index" class="btn btn-info ml-2 form-control">Back to List</a>
+					</div>
+				</div>
+
 			</div>
-			<div class="col-6">
-				<a asp-controller="Product" asp-action="Index" class="btn btn-info ml-2 form-control">Back to List</a>
-			</div>
 		</div>
+		<div class="col-2">
+			<img src="@Model.Product.ImageUrl" width="100%" style="border:1px solid #bbb9b9; border-radius:5px"/>
 		
+		</div>
 	</div>
+	
 </form>
 
 @section Scripts{
+	<script>
+		tinymce.init({
+			selector: 'textarea',
+			plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+			toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+			tinycomments_mode: 'embedded',
+			tinycomments_author: 'Author name',
+			mergetags_list: [
+				{ value: 'First.Name', title: 'First Name' },
+				{ value: 'Email', title: 'Email' },
+			],
+			ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant"))
+		});
+	</script>	
 	@{
 	 <partial name="_ValidationScriptsPartial"/>
 	}
