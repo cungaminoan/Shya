@@ -22,7 +22,7 @@ namespace ShyaWeb.Areas.Admin.Controllers
 		}
 		public IActionResult Index()
 		{
-			List<Product> objProductList = _unitOfWork.Product.GetAll().ToList();	
+			List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties:"Category").ToList();	
 			return View(objProductList);
 		}
 		public IActionResult Upsert(int? id)
@@ -97,15 +97,32 @@ namespace ShyaWeb.Areas.Admin.Controllers
 			}
 		}
 
-		[HttpPost, ActionName("Delete")]
-		public IActionResult DeletePOST(int? id)
+
+		#region API CALLS
+		[HttpGet] 
+		public IActionResult GetAll()
 		{
-			Product obj = _unitOfWork.Product.Get(u => u.Id == id);
-			_unitOfWork.Product.Remove(obj);
+			List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties:"Category").ToList();
+			return  Json(new {data = objProductList});
+		}
+
+		public IActionResult Delete(int? id)
+		{
+			var productToBeDelete = _unitOfWork.Product.Get(u=>u.Id == id);
+			if(productToBeDelete == null)
+			{
+				return Json(new { success = false, message = "Error while deleting" });
+			}
+			var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, productToBeDelete.ImageUrl.TrimStart('\\'));
+			if (System.IO.File.Exists(oldImagePath))
+			{
+				System.IO.File.Delete(oldImagePath);
+			}
+			_unitOfWork.Product.Remove(productToBeDelete);
 			_unitOfWork.Save();
-			TempData["success"] = "Product was edited successfully";
-			return RedirectToAction("Index");
+			return Json(new { success = true, message= "Delete Successfully" });
 
 		}
+		#endregion
 	}
 }

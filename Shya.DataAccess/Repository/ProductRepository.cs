@@ -29,7 +29,7 @@ namespace Shya.DataAccess.Repository
 				objFromDb.Price50 = obj.Price50;
 				objFromDb.Price100 = obj.Price100;
 				if(objFromDb.ImageUrl != null)
-				{
+				{ 
 					objFromDb.ImageUrl = obj.ImageUrl;
 				}
 			}
