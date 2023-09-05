@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Identity.Client;
@@ -7,11 +8,13 @@ using Shya.DataAccess.Data;
 using Shya.DataAccess.Repository.IRepository;
 using Shya.Models;
 using Shya.Models.ViewModels;
+using Shya.Utility;
 
 namespace ShyaWeb.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-	public class ProductController : Controller
+    [Authorize(Roles = SD.Role_Admin)]
+    public class ProductController : Controller
 	{
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly IWebHostEnvironment _webHostEnvironment;
