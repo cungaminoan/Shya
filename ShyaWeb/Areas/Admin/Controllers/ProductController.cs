@@ -13,8 +13,8 @@ using Shya.Utility;
 namespace ShyaWeb.Areas.Admin.Controllers
 {
 	[Area("Admin")]
-    [Authorize(Roles = SD.Role_Admin)]
-    public class ProductController : Controller
+	[Authorize(Roles = SD.Role_Admin)]
+	public class ProductController : Controller
 	{
 		private readonly IUnitOfWork _unitOfWork;
 		private readonly IWebHostEnvironment _webHostEnvironment;

@@ -14,6 +14,7 @@ namespace Shya.DataAccess.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
 		public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+		public DbSet<Company> Companies { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 			base.OnModelCreating(modelBuilder);
@@ -22,6 +23,11 @@ namespace Shya.DataAccess.Data
                 new Category() { Id = 2, Name = "Sci-fi", DisplayOrder = 2 },
                 new Category() { Id = 3, Name = "History", DisplayOrder = 3 }
                 );
+			modelBuilder.Entity<Company>().HasData(
+			   new Company() { Id = 1, Name = "Dit me duc minh", StreetAddress="sdsadsa",City="Sai Gon", State="California",PhoneNumber="2432433",PostalCode="232132" },
+			   new Company() { Id = 2, Name = "Dit me duc minh 2.0", StreetAddress="sdsadsa",City="Sai Gon 2", State="North California",PhoneNumber="2432433",PostalCode="232132" },
+			   new Company() { Id = 3, Name = "Dit me duc minh 3.0", StreetAddress="sdsadsa",City="Sai Gon 3", State=" South California",PhoneNumber="2432433",PostalCode="232132" }
+			   );
 			modelBuilder.Entity<Product>().HasData(
 				new Product
 				{

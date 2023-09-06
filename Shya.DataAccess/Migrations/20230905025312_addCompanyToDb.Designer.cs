@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shya.DataAccess.Data;
 
@@ -11,9 +12,11 @@ using Shya.DataAccess.Data;
 namespace Shya.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230905025312_addCompanyToDb")]
+    partial class addCompanyToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -300,38 +303,6 @@ namespace Shya.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            City = "Sai Gon",
-                            Name = "Dit me duc minh",
-                            PhoneNumber = "2432433",
-                            PostalCode = "232132",
-                            State = "California",
-                            StreetAddress = "sdsadsa"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            City = "Sai Gon 2",
-                            Name = "Dit me duc minh 2.0",
-                            PhoneNumber = "2432433",
-                            PostalCode = "232132",
-                            State = "North California",
-                            StreetAddress = "sdsadsa"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            City = "Sai Gon 3",
-                            Name = "Dit me duc minh 3.0",
-                            PhoneNumber = "2432433",
-                            PostalCode = "232132",
-                            State = " South California",
-                            StreetAddress = "sdsadsa"
-                        });
                 });
 
             modelBuilder.Entity("Shya.Models.Product", b =>
