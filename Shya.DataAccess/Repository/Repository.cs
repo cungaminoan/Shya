@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Shya.DataAccess.Repository
 {
@@ -24,9 +25,17 @@ namespace Shya.DataAccess.Repository
 			dbSet.Add(entity);
 		}
 
-		public T Get(System.Linq.Expressions.Expression<Func<T, bool>> filter, string? includeProperties = null)
+		public T Get(System.Linq.Expressions.Expression<Func<T, bool>> filter, string? includeProperties = null,bool tracked =false)
 		{
-			IQueryable<T> query = dbSet;
+			IQueryable<T> query;
+			if (tracked)
+			{
+				 query = dbSet;
+			}
+			else
+			{
+				 query = dbSet.AsNoTracking();
+			}
 			query = query.Where(filter);
 			if (!string.IsNullOrEmpty(includeProperties))
 			{

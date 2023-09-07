@@ -15,6 +15,7 @@ namespace Shya.Models
         [ForeignKey("ProductId")]
         [ValidateNever]
         public int ProductId { get; set; }
+        public Product Product { get; set; }
         [Range(0,1000,ErrorMessage ="Please enter the value beetween 0 and 1000")]
         public int Count { get; set; }
         public String ApplicationUserId { get; set; }
