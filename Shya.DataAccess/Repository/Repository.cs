@@ -4,6 +4,7 @@ using Shya.DataAccess.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -25,7 +26,7 @@ namespace Shya.DataAccess.Repository
 			dbSet.Add(entity);
 		}
 
-		public T Get(System.Linq.Expressions.Expression<Func<T, bool>> filter, string? includeProperties = null,bool tracked =false)
+		public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null,bool tracked =false)
 		{
 			IQueryable<T> query;
 			if (tracked)
@@ -48,9 +49,13 @@ namespace Shya.DataAccess.Repository
 			return query.FirstOrDefault();
 		}
 
-		public IEnumerable<T> GetAll(string? includeProperties = null)
+		public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter, string? includeProperties = null)
 		{
 			IQueryable<T> query = dbSet;
+			if (filter != null)
+			{
+				query = query.Where(filter);
+			}
 			if (!string.IsNullOrEmpty(includeProperties))
 			{
 				foreach(var includeProp in includeProperties.
