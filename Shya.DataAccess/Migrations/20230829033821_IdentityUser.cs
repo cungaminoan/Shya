@@ -31,7 +31,7 @@ namespace Shya.DataAccess.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "PortalCode",
+                name: "PostalCode",
                 table: "AspNetUsers",
                 type: "nvarchar(max)",
                 nullable: true);
@@ -65,7 +65,7 @@ namespace Shya.DataAccess.Migrations
                 table: "AspNetUsers");
 
             migrationBuilder.DropColumn(
-                name: "PortalCode",
+                name: "PostalCode",
                 table: "AspNetUsers");
 
             migrationBuilder.DropColumn(
