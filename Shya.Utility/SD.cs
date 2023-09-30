@@ -24,5 +24,7 @@ namespace Shya.Utility
 		public const string PaymentStatusApproved = "Approved";
 		public const string PaymentStatusDelayedPayment = "Delayed";
 		public const string PaymentStatusRejected = "Rejected";
+
+		public const string SessionCart = "SessionShoppingCart";
 	}
 }

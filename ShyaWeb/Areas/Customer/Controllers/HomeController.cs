@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shya;
 using Shya.DataAccess.Repository.IRepository;
 using Shya.Models;
+using Shya.Utility;
 using System.Diagnostics;
 using System.Security.Claims;
 
@@ -22,7 +23,8 @@ namespace ShyaWeb.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
+			
+			IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
             return View(productList);
         }
         public IActionResult Details(int productId)
@@ -49,12 +51,16 @@ namespace ShyaWeb.Areas.Customer.Controllers
             {
                 cartFromDb.Count += shoppingCart.Count;
                 _unitOfWork.ShoppingCart.Update(cartFromDb);
-            }
-            else
+				_unitOfWork.Save();
+
+			}
+			else
             {
                 _unitOfWork.ShoppingCart.Add(shoppingCart);
+				_unitOfWork.Save();
+				HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart.GetAll(
+                    u => u.ApplicationUserId == userId).Count());
             }
-            _unitOfWork.Save();
 			return RedirectToAction(nameof(Index));
 		}
 
