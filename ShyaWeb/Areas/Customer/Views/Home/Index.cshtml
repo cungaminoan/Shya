@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Product>
 
+
 	<div class="row pb-3">
 	@foreach(var product in Model)
 	{
@@ -8,17 +9,17 @@
 				<div class="col-12 p-1">
 					<div class="card border-0 p-3 shadow border-top border-5 rounded" style="font-size:1rem">
 						<img height="300px" src="@product.ImageUrl" class="card-img-top rounded" />
-						<div class=" pb-0 pt-2"> 
-							<div class="pl-1"> 
+						<div class=" pb-0 pt-2">
+							<div class="pl-1">
 								<p class="card-title h5 text-body opacity-75 text-uppercase text-center">@product.Title</p>
 								<p class="card-title text-body text-center">by <b>@product.Author</b></p>
 							</div>
-							<div class="pl-1"> 
+							<div class="pl-1">
 								<p class="text-body opacity-75 text-center">List Price:
 									<span class="text-decoration-line-through">@product.ListPrice.ToString("c")</span>
 								</p>
 							</div>
-							<div class="pl-1"> 
+							<div class="pl-1">
 								<p class="text-body opacity-75 text-center">As low as:
 									<span>@product.Price100.ToString("c")</span>
 								</p>
